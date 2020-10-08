@@ -11,6 +11,19 @@ class UserController extends DefaultController
 {
     protected $userService;
 
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['verb'] =  [
+            'class' => \yii\filters\VerbFilter::className(),
+            'actions' => [
+                'login' => ['POST'],
+                'register' => ['POST'],
+            ]
+        ];
+        return $behaviors;
+    }
+
     public function __construct($id, $module, UserService $userService, $config = [])
     {
         $this->userService = $userService;
