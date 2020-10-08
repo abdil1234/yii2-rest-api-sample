@@ -2,15 +2,27 @@
 namespace backend\modules\v1\controllers;
 
 use Yii;
-use backend\modules\v1\resource\UserResource;
+use backend\modules\v1\services\UserService;
 
 /**
  * User controller
  */
 class UserController extends DefaultController
 {
-    public $modelClass = UserResource::class;
+    protected $userService;
 
-    
-    
+    public function __construct($id, $module, UserService $userService, $config = [])
+    {
+        $this->userService = $userService;
+        parent::__construct($id, $module, $config);
+    }
+
+    public function actionLogin(){
+        return $this->userService->loginUser();
+
+    }
+
+    public function actionRegister(){
+        return $this->userService->registerUser();
+    }
 }

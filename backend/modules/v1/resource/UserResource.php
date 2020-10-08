@@ -4,8 +4,9 @@ namespace backend\modules\v1\resource;
 use yii\base\Model;
 use yii\web\Link; // represents a link object as defined in JSON Hypermedia API Language.
 use yii\web\Linkable;
-use backend\modules\v1\models\User;
+use common\models\User;
 use yii\helpers\Url;
+
 
 class UserResource extends User implements Linkable
 {
