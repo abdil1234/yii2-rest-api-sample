@@ -6,7 +6,6 @@ use Yii;
 use backend\modules\v1\resource\UserResource;
 use backend\models\SignupForm;
 use common\models\LoginForm;
-use yii\helpers\Url;
 use yii\caching\TagDependency;
 /**
  * This is the repository class for table "user".
@@ -67,7 +66,7 @@ class UserRepository
         $model = $this->userLogin;
         $model->load($data, '');
         if($model->login()){
-            return $model;
+            return $this->user::findByUsername($model->username);
         }
         
         $response = Yii::$app->getResponse();

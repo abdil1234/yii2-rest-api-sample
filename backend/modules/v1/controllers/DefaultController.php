@@ -22,7 +22,9 @@ class DefaultController extends Controller
             'class' => HttpBasicAuth::className(),
             'auth' => function ($username, $password) {
                 $user = User::find()->where(['username' => $username])->one();
-                return $user;
+                if($user->validatePassword($password)){
+                    return $user;
+                }
             },
         ];
         return $behaviors;
