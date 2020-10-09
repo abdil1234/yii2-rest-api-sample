@@ -101,6 +101,15 @@
    ```
    127.0.0.1   rest-rbac.test
    ```
+   
+ ## API Versioning
+The first part of the URI path specifies the API version you wish to access in the format `v{version_number}`. 
+
+For example, version 1 of the API (most current) is accessible via:
+
+```no-highlight
+http://rest-rbac.test/v1
+```
 # Register
     POST http://rest-rbac.test/v1/user/register
     
@@ -369,3 +378,15 @@ Update Book base on book id the current authorized user has access to
 
 ### Response (204)
 No content
+
+## HTTP Response Codes
+Each response will be returned with one of the following HTTP status codes:
+
+* `200` `OK` The request was successful
+* `204` `No Content` The delete request was successful
+* `400` `Bad Request` There was a problem with the request (security, malformed, data validation, etc.)
+* `401` `Unauthorized` The supplied API credentials are invalid
+* `403` `Forbidden` The credentials provided do not have permission to access the requested resource
+* `404` `Not found` An attempt was made to access a resource that does not exist in the API
+* `405` `Method not allowed` The resource being accessed doesn't support the method specified (GET, POST, etc.).
+* `500` `Server Error` An error on the server occurred
