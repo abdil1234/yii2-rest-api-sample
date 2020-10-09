@@ -139,7 +139,7 @@ Register new user
     POST http://rest-rbac.test/v1/user/login
     
 
-Login user, See backend/config/params.php to set token expired
+Login user, See common/config/params.php to set token expired
 
 #### Request Body
 ```json
