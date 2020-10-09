@@ -110,10 +110,12 @@ For example, version 1 of the API (most current) is accessible via:
 ```no-highlight
 http://rest-rbac.test/v1
 ```
+# Default User
+* user default was created white migrate db  = `username: admin, pass:123456`
 # Register
     POST http://rest-rbac.test/v1/user/register
     
-Register new user
+Register new user (all user created will get user role)
 
 #### Request Body
 ```json
