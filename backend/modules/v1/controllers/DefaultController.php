@@ -3,7 +3,7 @@
 namespace backend\modules\v1\controllers;
 use yii\rest\Controller;
 use common\models\User;
-use yii\filters\auth\HttpBasicAuth;
+use yii\filters\auth\HttpBearerAuth;
 
 /**
  * Default controller for the `v1` module
@@ -19,13 +19,7 @@ class DefaultController extends Controller
     {
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-            'class' => HttpBasicAuth::className(),
-            'auth' => function ($username, $password) {
-                $user = User::find()->where(['username' => $username])->one();
-                if($user->validatePassword($password)){
-                    return $user;
-                }
-            },
+            'class' => HttpBearerAuth::className()
         ];
         return $behaviors;
     }

@@ -53,6 +53,7 @@ class UserRepository
         if ($model->signup()){
             $response = Yii::$app->getResponse();
             $response->setStatusCode(201);
+            return $this->user::findByUsername($model->username);
         }
         return $model;
     }
@@ -66,11 +67,19 @@ class UserRepository
         $model = $this->userLogin;
         $model->load($data, '');
         if($model->login()){
-            return $this->user::findByUsername($model->username);
+            return $this->setAccessToken($this->user::findByUsername($model->username));
         }
         
         $response = Yii::$app->getResponse();
         $response->setStatusCode(401);
         return ["Incorrect username or password."];
+    }
+
+
+    public function setAccessToken($model)
+    {
+        $model->access_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $model->save(false, ['access_token']);
+        return $model;
     }
 }

@@ -7,7 +7,7 @@ use backend\modules\v1\services\UserService;
 /**
  * User controller
  */
-class UserController extends DefaultController
+class UserController extends \yii\rest\Controller
 {
     protected $userService;
 

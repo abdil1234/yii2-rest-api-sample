@@ -73,7 +73,9 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = "Bearer")
     {
-        return static::findOne(['access_token' => $token]);
+        if(static::isAccessTokenValid($token)){
+            return static::findOne(['access_token' => $token]);
+        }
     }
 
     /**
@@ -132,6 +134,23 @@ class User extends ActiveRecord implements IdentityInterface
 
         $timestamp = (int) substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
+        return $timestamp + $expire >= time();
+    }
+
+    /**
+     * Finds out if  access token is valid
+     *
+     * @param string $token access token
+     * @return bool
+     */
+    public static function isAccessTokenValid($token)
+    {
+        if (empty($token)) {
+            return false;
+        }
+
+        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $expire = Yii::$app->params['user.accessToken'];
         return $timestamp + $expire >= time();
     }
 

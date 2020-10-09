@@ -8,6 +8,7 @@
 * php yii migrate
 * php yii migrate --migrationPath=@yii/rbac/migrations
 * php yii rbac/init
+* src `/backend`
  
 # Configuration
 * document roots of your web server:
@@ -117,9 +118,11 @@ Register new user
 ### Response (201)
 ``` json
 {
-    "username": "user",
-    "email": "user1@gmail.com",
-    "access_token": "1234567890"
+    "id": 11,
+    "email": "user11@gmail.com",
+    "username": "user1",
+    "status": 10,
+    "access_token": null
 }
 ```
 
@@ -127,7 +130,7 @@ Register new user
     POST http://rest-rbac.test/v1/user/login
     
 
-Login user
+Login user, See backend/config/params.php to set token expired
 
 #### Request Body
 ```json
@@ -143,11 +146,12 @@ Login user
     "id": 10,
     "email": "user1@gmail.com",
     "username": "user",
-    "status": 10
+    "status": 10,
+    "access_token": "DEu0SMf1dg8Z6yTpE7p0ONL5YkE-KOJ5_1602267268"
 }
 ```
 # Authentication
-Make sure every request to book endpoint set header Authorization: Bearer <token>
+Make sure every request to book endpoint set header ``Authorization: Bearer <access_token>``
 
 # Authorization
 * admin -> create, update,index, view,delete
